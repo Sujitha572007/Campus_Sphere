@@ -1,17 +1,64 @@
-# campus_sphere
+# CampusSphere 🎓
 
-A new Flutter project.
+CampusSphere is a Flutter-based mobile application that connects students, college clubs, events, and campus locations in one platform.
+
+## Features
+
+* Explore college clubs and campus communities
+* Discover and register for college events
+* Receive notifications
+* Navigate campus facilities using an interactive map
+* Club management features
+* QR-based event check-ins
+
+## Tech Stack
+
+* Flutter
+* Dart
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+* Flutter SDK
+* Dart SDK
+* VS Code or Android Studio
+* An emulator or connected device
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Sujitha572007/Campus_Sphere.git
+   ```
+
+2. Open the project directory:
+
+   ```bash
+   cd Campus_Sphere
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+4. Run the application:
+
+   ```bash
+   flutter run
+   ```
+
+## About
+
+CampusSphere aims to make campus life more connected by bringing club engagement, event discovery, and campus navigation into one application.
+
+## Contributors
+
+Add the names and GitHub usernames of the people who genuinely contributed to this project.
+
+## Acknowledgements
+
+Credit the original project creator and describe your own contributions where appropriate.
