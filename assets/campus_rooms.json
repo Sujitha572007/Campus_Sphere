@@ -1,0 +1,870 @@
+[
+  {
+    "id": "A101",
+    "block": "A",
+    "floor": 0,
+    "name": "Vice Principal Office",
+    "notes": ""
+  },
+  {
+    "id": "A102",
+    "block": "A",
+    "floor": 0,
+    "name": "Office",
+    "notes": ""
+  },
+  {
+    "id": "A103",
+    "block": "A",
+    "floor": 0,
+    "name": "Principal Office",
+    "notes": ""
+  },
+  {
+    "id": "A104",
+    "block": "A",
+    "floor": 0,
+    "name": "AI Machine Lab",
+    "notes": ""
+  },
+  {
+    "id": "A105",
+    "block": "A",
+    "floor": 0,
+    "name": "Power Energy Research Center",
+    "notes": ""
+  },
+  {
+    "id": "A107",
+    "block": "A",
+    "floor": 0,
+    "name": "DC Machines Lab",
+    "notes": ""
+  },
+  {
+    "id": "A108",
+    "block": "A",
+    "floor": 0,
+    "name": "Seminar Hall",
+    "notes": ""
+  },
+  {
+    "id": "A109",
+    "block": "A",
+    "floor": 0,
+    "name": "Exam Cell",
+    "notes": ""
+  },
+  {
+    "id": "A110",
+    "block": "A",
+    "floor": 0,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "A111",
+    "block": "A",
+    "floor": 0,
+    "name": "AIML C",
+    "notes": ""
+  },
+  {
+    "id": "A112",
+    "block": "A",
+    "floor": 0,
+    "name": "AIML B",
+    "notes": ""
+  },
+  {
+    "id": "A114",
+    "block": "A",
+    "floor": 0,
+    "name": "AIML A — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A201",
+    "block": "A",
+    "floor": 1,
+    "name": "EEE Department Office",
+    "notes": ""
+  },
+  {
+    "id": "A202",
+    "block": "A",
+    "floor": 1,
+    "name": "EEE A — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "A203",
+    "block": "A",
+    "floor": 1,
+    "name": "EEE — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "A204",
+    "block": "A",
+    "floor": 1,
+    "name": "EEE — Fourth Year",
+    "notes": ""
+  },
+  {
+    "id": "A206",
+    "block": "A",
+    "floor": 1,
+    "name": "Simulation Lab",
+    "notes": ""
+  },
+  {
+    "id": "A207",
+    "block": "A",
+    "floor": 1,
+    "name": "MP and MC Lab",
+    "notes": ""
+  },
+  {
+    "id": "A208",
+    "block": "A",
+    "floor": 1,
+    "name": "Power Electronics Lab",
+    "notes": ""
+  },
+  {
+    "id": "A209",
+    "block": "A",
+    "floor": 1,
+    "name": "Measurements Lab",
+    "notes": ""
+  },
+  {
+    "id": "A211",
+    "block": "A",
+    "floor": 1,
+    "name": "English Communication Skills Lab 1",
+    "notes": ""
+  },
+  {
+    "id": "A212",
+    "block": "A",
+    "floor": 1,
+    "name": "English Communication Skills Lab 2",
+    "notes": ""
+  },
+  {
+    "id": "A213",
+    "block": "A",
+    "floor": 1,
+    "name": "Advanced Communication Skills Lab",
+    "notes": ""
+  },
+  {
+    "id": "A214",
+    "block": "A",
+    "floor": 1,
+    "name": "BS Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "A215",
+    "block": "A",
+    "floor": 1,
+    "name": "HOD Room",
+    "notes": ""
+  },
+  {
+    "id": "A216",
+    "block": "A",
+    "floor": 1,
+    "name": "EEE Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "A217",
+    "block": "A",
+    "floor": 1,
+    "name": "CSE CY — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A218",
+    "block": "A",
+    "floor": 1,
+    "name": "CSE A — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A219",
+    "block": "A",
+    "floor": 1,
+    "name": "CSE B — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A220",
+    "block": "A",
+    "floor": 1,
+    "name": "CSE C — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A301",
+    "block": "A",
+    "floor": 2,
+    "name": "",
+    "notes": "Details not provided."
+  },
+  {
+    "id": "A302",
+    "block": "A",
+    "floor": 2,
+    "name": "",
+    "notes": "Details not provided."
+  },
+  {
+    "id": "A303",
+    "block": "A",
+    "floor": 2,
+    "name": "ECE A — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A304",
+    "block": "A",
+    "floor": 2,
+    "name": "ECE B — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A305",
+    "block": "A",
+    "floor": 2,
+    "name": "Drawing Hall",
+    "notes": ""
+  },
+  {
+    "id": "A306",
+    "block": "A",
+    "floor": 2,
+    "name": "Analog and Digital Circuit Lab",
+    "notes": ""
+  },
+  {
+    "id": "A307",
+    "block": "A",
+    "floor": 2,
+    "name": "EEE Department Library",
+    "notes": ""
+  },
+  {
+    "id": "A308",
+    "block": "A",
+    "floor": 2,
+    "name": "Power Converters Lab",
+    "notes": ""
+  },
+  {
+    "id": "A309",
+    "block": "A",
+    "floor": 2,
+    "name": "Network Lab",
+    "notes": ""
+  },
+  {
+    "id": "A310",
+    "block": "A",
+    "floor": 2,
+    "name": "",
+    "notes": "Details not provided."
+  },
+  {
+    "id": "A311",
+    "block": "A",
+    "floor": 2,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "A312",
+    "block": "A",
+    "floor": 2,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "A313",
+    "block": "A",
+    "floor": 2,
+    "name": "M.Tech Project Lab",
+    "notes": ""
+  },
+  {
+    "id": "A316",
+    "block": "A",
+    "floor": 2,
+    "name": "Physics Lab",
+    "notes": ""
+  },
+  {
+    "id": "A317",
+    "block": "A",
+    "floor": 2,
+    "name": "Physics Lab",
+    "notes": ""
+  },
+  {
+    "id": "A318",
+    "block": "A",
+    "floor": 2,
+    "name": "IT A — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A319",
+    "block": "A",
+    "floor": 2,
+    "name": "IT B — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A320",
+    "block": "A",
+    "floor": 2,
+    "name": "IT C — First Year",
+    "notes": ""
+  },
+  {
+    "id": "A321",
+    "block": "A",
+    "floor": 2,
+    "name": "Mechanical — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B101",
+    "block": "B",
+    "floor": 0,
+    "name": "ECE HOD / Department Office",
+    "notes": ""
+  },
+  {
+    "id": "B102",
+    "block": "B",
+    "floor": 0,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "B103",
+    "block": "B",
+    "floor": 0,
+    "name": "ECE VLSI — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B104",
+    "block": "B",
+    "floor": 0,
+    "name": "N/A",
+    "notes": ""
+  },
+  {
+    "id": "B105",
+    "block": "B",
+    "floor": 0,
+    "name": "Geotechnical Lab",
+    "notes": ""
+  },
+  {
+    "id": "B107",
+    "block": "B",
+    "floor": 0,
+    "name": "FM and HM Lab",
+    "notes": ""
+  },
+  {
+    "id": "B108",
+    "block": "B",
+    "floor": 0,
+    "name": "Concrete Technology Lab",
+    "notes": ""
+  },
+  {
+    "id": "B109",
+    "block": "B",
+    "floor": 0,
+    "name": "Transportation Engineering Lab",
+    "notes": ""
+  },
+  {
+    "id": "B111",
+    "block": "B",
+    "floor": 0,
+    "name": "ECE Seminar Hall",
+    "notes": ""
+  },
+  {
+    "id": "B112",
+    "block": "B",
+    "floor": 0,
+    "name": "Strength of Materials Lab",
+    "notes": ""
+  },
+  {
+    "id": "B113",
+    "block": "B",
+    "floor": 0,
+    "name": "ECE A — Third Year, First Semester",
+    "notes": ""
+  },
+  {
+    "id": "B115",
+    "block": "B",
+    "floor": 0,
+    "name": "CSE AI & DS A — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B116",
+    "block": "B",
+    "floor": 0,
+    "name": "CSE AI & DS B — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B117",
+    "block": "B",
+    "floor": 0,
+    "name": "M.Tech VLSI Lecture Hall",
+    "notes": ""
+  },
+  {
+    "id": "B118",
+    "block": "B",
+    "floor": 0,
+    "name": "CSE AIML D — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B201",
+    "block": "B",
+    "floor": 1,
+    "name": "IQAC Cell",
+    "notes": ""
+  },
+  {
+    "id": "B202",
+    "block": "B",
+    "floor": 1,
+    "name": "RAAC",
+    "notes": ""
+  },
+  {
+    "id": "B203",
+    "block": "B",
+    "floor": 1,
+    "name": "ECE B — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "B204",
+    "block": "B",
+    "floor": 1,
+    "name": "CSE CS — Fourth Year",
+    "notes": ""
+  },
+  {
+    "id": "B205",
+    "block": "B",
+    "floor": 1,
+    "name": "Chemistry Lab",
+    "notes": ""
+  },
+  {
+    "id": "B207",
+    "block": "B",
+    "floor": 1,
+    "name": "DSP Center of Excellence",
+    "notes": ""
+  },
+  {
+    "id": "B208",
+    "block": "B",
+    "floor": 1,
+    "name": "Communications Lab",
+    "notes": ""
+  },
+  {
+    "id": "B210",
+    "block": "B",
+    "floor": 1,
+    "name": "Microwave and Optical Communication Lab",
+    "notes": ""
+  },
+  {
+    "id": "B211",
+    "block": "B",
+    "floor": 1,
+    "name": "ECE A — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "B212",
+    "block": "B",
+    "floor": 1,
+    "name": "ECE B — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "B213",
+    "block": "B",
+    "floor": 1,
+    "name": "CSE Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "B214",
+    "block": "B",
+    "floor": 1,
+    "name": "ECE Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "B301",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering Department Office",
+    "notes": ""
+  },
+  {
+    "id": "B302",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "B303",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering — Fourth Year",
+    "notes": ""
+  },
+  {
+    "id": "B304",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "B305",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "B306",
+    "block": "B",
+    "floor": 2,
+    "name": "",
+    "notes": "Details not provided."
+  },
+  {
+    "id": "B307",
+    "block": "B",
+    "floor": 2,
+    "name": "Surveying Lab",
+    "notes": ""
+  },
+  {
+    "id": "B308",
+    "block": "B",
+    "floor": 2,
+    "name": "Chemistry Lab",
+    "notes": ""
+  },
+  {
+    "id": "B309",
+    "block": "B",
+    "floor": 2,
+    "name": "Special Lab (DHCL)",
+    "notes": "Name transcribed from handwritten list; confirm exact lab name."
+  },
+  {
+    "id": "B310",
+    "block": "B",
+    "floor": 2,
+    "name": "Engineering Geology Lab",
+    "notes": ""
+  },
+  {
+    "id": "B312",
+    "block": "B",
+    "floor": 2,
+    "name": "GIS / CAD Lab",
+    "notes": "Name transcribed from handwritten list; confirm exact lab name."
+  },
+  {
+    "id": "B313",
+    "block": "B",
+    "floor": 2,
+    "name": "Advanced Electrical / BCD Lab",
+    "notes": "Name transcribed from handwritten list; confirm exact lab name."
+  },
+  {
+    "id": "B314",
+    "block": "B",
+    "floor": 2,
+    "name": "Civil Engineering — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B315",
+    "block": "B",
+    "floor": 2,
+    "name": "EEE — First Year",
+    "notes": ""
+  },
+  {
+    "id": "B316",
+    "block": "B",
+    "floor": 2,
+    "name": "VLSI Lab",
+    "notes": ""
+  },
+  {
+    "id": "B317",
+    "block": "B",
+    "floor": 2,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "B318",
+    "block": "B",
+    "floor": 2,
+    "name": "ECE Department Library",
+    "notes": ""
+  },
+  {
+    "id": "B319",
+    "block": "B",
+    "floor": 2,
+    "name": "IoT",
+    "notes": "Name transcribed from handwritten list; confirm exact lab name."
+  },
+  {
+    "id": "C101",
+    "block": "C",
+    "floor": 0,
+    "name": "Mechanical Engineering Department Office",
+    "notes": ""
+  },
+  {
+    "id": "C102",
+    "block": "C",
+    "floor": 0,
+    "name": "Machine Tool Lab",
+    "notes": ""
+  },
+  {
+    "id": "C103",
+    "block": "C",
+    "floor": 0,
+    "name": "Thermal Engineering Lab",
+    "notes": ""
+  },
+  {
+    "id": "C104",
+    "block": "C",
+    "floor": 0,
+    "name": "Engineering Mechanics Lab",
+    "notes": ""
+  },
+  {
+    "id": "C105",
+    "block": "C",
+    "floor": 0,
+    "name": "",
+    "notes": "Details not provided."
+  },
+  {
+    "id": "C106",
+    "block": "C",
+    "floor": 0,
+    "name": "Heat Transfer Lab",
+    "notes": ""
+  },
+  {
+    "id": "C109",
+    "block": "C",
+    "floor": 0,
+    "name": "Product Technology Lab",
+    "notes": ""
+  },
+  {
+    "id": "C110",
+    "block": "C",
+    "floor": 0,
+    "name": "Mechanical Engineering — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "C112",
+    "block": "C",
+    "floor": 0,
+    "name": "WISE Lab",
+    "notes": ""
+  },
+  {
+    "id": "C113",
+    "block": "C",
+    "floor": 0,
+    "name": "Server Room",
+    "notes": ""
+  },
+  {
+    "id": "C114",
+    "block": "C",
+    "floor": 0,
+    "name": "Classroom",
+    "notes": ""
+  },
+  {
+    "id": "C201",
+    "block": "C",
+    "floor": 1,
+    "name": "AI HOD Room",
+    "notes": ""
+  },
+  {
+    "id": "C202",
+    "block": "C",
+    "floor": 1,
+    "name": "Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "C203",
+    "block": "C",
+    "floor": 1,
+    "name": "CSE AI & DS A — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "C204",
+    "block": "C",
+    "floor": 1,
+    "name": "CSE AI & DS B — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "C205",
+    "block": "C",
+    "floor": 1,
+    "name": "Staff Room",
+    "notes": ""
+  },
+  {
+    "id": "C206",
+    "block": "C",
+    "floor": 1,
+    "name": "AIML — Second Year",
+    "notes": ""
+  },
+  {
+    "id": "C207",
+    "block": "C",
+    "floor": 1,
+    "name": "Placement Cell",
+    "notes": ""
+  },
+  {
+    "id": "C208",
+    "block": "C",
+    "floor": 1,
+    "name": "Placement Cell",
+    "notes": ""
+  },
+  {
+    "id": "C209",
+    "block": "C",
+    "floor": 1,
+    "name": "Placement Cell",
+    "notes": ""
+  },
+  {
+    "id": "C212",
+    "block": "C",
+    "floor": 1,
+    "name": "ECE A — Fourth Year",
+    "notes": ""
+  },
+  {
+    "id": "C213",
+    "block": "C",
+    "floor": 1,
+    "name": "ECE B — Fourth Year",
+    "notes": ""
+  },
+  {
+    "id": "C214",
+    "block": "C",
+    "floor": 1,
+    "name": "AIML A — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "C215",
+    "block": "C",
+    "floor": 1,
+    "name": "AIML B — Third Year",
+    "notes": ""
+  },
+  {
+    "id": "C216",
+    "block": "C",
+    "floor": 1,
+    "name": "Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "C217",
+    "block": "C",
+    "floor": 1,
+    "name": "Faculty Room",
+    "notes": ""
+  },
+  {
+    "id": "C218",
+    "block": "C",
+    "floor": 1,
+    "name": "IBM & DS Lab",
+    "notes": ""
+  },
+  {
+    "id": "C219",
+    "block": "C",
+    "floor": 1,
+    "name": "IBM & DS Lab",
+    "notes": ""
+  },
+  {
+    "id": "jewel_labs",
+    "block": "Independent",
+    "floor": 1,
+    "name": "Jewel Labs — Computer Labs",
+    "notes": "Separate facility; no block assigned."
+  },
+  {
+    "id": "seetha_auditorium",
+    "block": "Independent",
+    "floor": 0,
+    "name": "Seetha Auditorium",
+    "notes": "Separate facility; no block assigned."
+  }
+]

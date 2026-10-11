@@ -1,0 +1,11 @@
+{
+  "name": "campussphere-security-tests",
+  "private": true,
+  "dependencies": {
+    "@firebase/rules-unit-testing": "^3.0.4",
+    "firebase": "^10.14.1"
+  },
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore --project demo-campus-admin \"node registration.test.cjs && node qr_map.test.cjs && node notifications.test.cjs && node immediate.test.cjs\""
+  }
+}

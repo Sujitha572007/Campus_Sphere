@@ -1,0 +1,40 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "campussphere-61a10",
+          "appId": "1:591923102324:android:a2db80ae06ee071e108721",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "campussphere-61a10",
+          "configurations": {
+            "android": "1:591923102324:android:a2db80ae06ee071e108721",
+            "web": "1:591923102324:web:302363df287e72d7108721"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "campussphere",
+      "runtime": "nodejs22",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "*.log",
+        ".env*",
+        "test"
+      ]
+    }
+  ]
+}

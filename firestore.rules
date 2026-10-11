@@ -1,0 +1,203 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    function isStudent() {
+      return signedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'student';
+    }
+    function canRegister(event) {
+      return event.status == 'scheduled' && event.registrationOpen == true
+        && event.startAt is timestamp && event.endAt is timestamp
+        && event.endAt > event.startAt && event.startAt > request.time
+        && (event.get('registrationDeadline', null) == null ||
+          (event.registrationDeadline is timestamp && event.registrationDeadline > request.time))
+        && event.registeredCount is int && event.registeredCount >= 0
+        && (event.get('capacity', null) == null || (event.capacity is int && event.capacity >= 0 &&
+          (event.capacity == 0 || event.registeredCount < event.capacity)));
+    }
+    match /users/{userId} {
+      function owner() { return signedIn() && request.auth.uid == userId; }
+      allow read: if owner() || isAdmin();
+      allow create: if owner()
+        && request.resource.data.keys().hasAll(['name','email','role','createdAt'])
+        && request.resource.data.keys().hasOnly(['name','email','role','createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.role == 'student' && request.resource.data.createdAt == request.time;
+      allow update: if owner() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100;
+      match /registrations/{eventId} {
+        function validRegistration() {
+          let path = /databases/$(database)/documents/events/$(eventId);
+          let before = get(path).data;
+          let after = getAfter(path).data;
+          let r = request.resource.data;
+          return r.keys().hasAll(['eventId','studentId','studentYear','status','registeredAt'])
+            && r.keys().hasOnly(['eventId','studentId','studentYear','status','registeredAt','ticketToken'])
+            && (!('ticketToken' in r) || (r.ticketToken is string && r.ticketToken.matches('^[A-Za-z0-9_-]{43}$')))
+            && r.eventId == eventId && r.studentId == userId
+            && r.studentYear is int && r.studentYear >= 1 && r.studentYear <= 4
+            && r.status == 'registered' && r.registeredAt == request.time
+            && canRegister(before) && before.eligibleYears is list
+            && (before.eligibleYears.size() == 0 || r.studentYear in before.eligibleYears)
+            && after.diff(before).affectedKeys().hasOnly(['registeredCount'])
+            && after.registeredCount == before.registeredCount + 1;
+        }
+        allow read: if owner() || isAdmin();
+        allow create: if owner() && isStudent() && validRegistration();
+        // Backfill one random ticket token for registrations created before QR support.
+        allow update: if owner() && resource.data.status == 'registered'
+          && !('ticketToken' in resource.data)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ticketToken'])
+          && request.resource.data.ticketToken is string
+          && request.resource.data.ticketToken.matches('^[A-Za-z0-9_-]{43}$');
+        allow delete: if false;
+      }
+    }
+    match /users/{userId}/checkins/{eventId} {
+      function validCheckin() {
+        let event = get(/databases/$(database)/documents/events/$(eventId)).data;
+        let registration = get(/databases/$(database)/documents/users/$(userId)/registrations/$(eventId)).data;
+        let d = request.resource.data;
+        return d.keys().hasAll(['eventId','studentId','checkedInAt','checkedInBy'])
+          && d.keys().hasOnly(['eventId','studentId','checkedInAt','checkedInBy'])
+          && d.eventId == eventId && d.studentId == userId
+          && d.checkedInAt == request.time && d.checkedInBy == request.auth.uid
+          && registration.eventId == eventId && registration.studentId == userId
+          && registration.status == 'registered'
+          && registration.ticketToken is string && registration.ticketToken.matches('^[A-Za-z0-9_-]{43}$')
+          && event.status == 'scheduled' && event.startAt is timestamp && event.endAt is timestamp
+          && event.endAt > event.startAt
+          && request.time >= event.startAt - duration.value(2, 'h') && request.time <= event.endAt;
+      }
+      allow read: if (signedIn() && request.auth.uid == userId) || isAdmin();
+      allow create: if isAdmin() && validCheckin();
+      // Immutable, deterministic document prevents duplicate/replaced attendance.
+      allow update, delete: if false;
+    }
+    match /users/{userId}/preferences/settings {
+      function own() { return signedIn() && request.auth.uid == userId; }
+      allow read: if own() || isAdmin();
+      allow create, update: if own()
+        && request.resource.data.keys().hasOnly(['theme','inAppNotifications','emailConfirmations'])
+        && request.resource.data.get('theme','system') in ['system','light','dark']
+        && request.resource.data.get('inAppNotifications',true) is bool
+        && request.resource.data.get('emailConfirmations',true) is bool;
+      allow delete: if false;
+    }
+    match /users/{userId}/notifications/{notificationId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow update: if signedIn() && request.auth.uid == userId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+        && request.resource.data.read == true;
+      function validConfirmation() {
+        let d = request.resource.data;
+        let eventPath = /databases/$(database)/documents/events/$(d.eventId);
+        let event = get(eventPath).data;
+        let regPath = /databases/$(database)/documents/users/$(userId)/registrations/$(d.eventId);
+        let checkPath = /databases/$(database)/documents/users/$(userId)/checkins/$(d.eventId);
+        return d.keys().hasAll(['type','eventId','title','body','read','createdAt'])
+          && d.keys().hasOnly(['type','eventId','title','body','read','createdAt'])
+          && d.eventId is string && d.read == false && d.createdAt == request.time
+          && ((signedIn() && request.auth.uid == userId && isStudent()
+            && notificationId == 'registration-' + d.eventId && d.type == 'registration'
+            && d.title == 'Registration confirmed'
+            && d.body == 'You are successfully registered for ' + event.title + '. Your QR ticket is in My Registered Events.'
+            && !exists(regPath) && getAfter(regPath).data.registeredAt == request.time
+            && getAfter(regPath).data.status == 'registered')
+          || (isAdmin() && notificationId == 'checkin-' + d.eventId && d.type == 'checkin'
+            && d.title == 'Attendance recorded' && d.body == 'You have checked in for ' + event.title + '.'
+            && !exists(checkPath) && getAfter(checkPath).data.checkedInAt == request.time
+            && getAfter(checkPath).data.checkedInBy == request.auth.uid));
+      }
+      allow create: if validConfirmation();
+      allow delete: if false;
+    }
+    match /users/{userId}/email_receipts/{eventId} {
+      allow read: if (signedIn() && request.auth.uid == userId) || isAdmin();
+      allow write: if false;
+    }
+    match /{path=**}/checkins/{checkinId} { allow read: if isAdmin(); }
+    match /campus_places/{placeId} {
+      allow read: if signedIn();
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasAll(['name','latitude','longitude','verified','updatedAt'])
+        && request.resource.data.keys().hasOnly(['name','latitude','longitude','verified','updatedAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+        && request.resource.data.latitude is number && request.resource.data.latitude >= -90 && request.resource.data.latitude <= 90
+        && request.resource.data.longitude is number && request.resource.data.longitude >= -180 && request.resource.data.longitude <= 180
+        && request.resource.data.verified == true && request.resource.data.updatedAt == request.time;
+      allow delete: if isAdmin();
+    }
+    // Required for the admin collection-group query over existing registrations.
+    match /{path=**}/registrations/{registrationId} {
+      allow read: if isAdmin();
+    }
+    match /admin_requests/{userId} {
+      allow read: if (signedIn() && request.auth.uid == userId) || isAdmin();
+      allow create: if signedIn() && request.auth.uid == userId
+        && request.resource.data.keys().hasAll(['studentId','email','name','status','requestedAt'])
+        && request.resource.data.keys().hasOnly(['studentId','email','name','status','requestedAt'])
+        && request.resource.data.studentId == userId && request.resource.data.email == request.auth.token.email
+        && request.resource.data.name is string && request.resource.data.name.size() <= 100
+        && request.resource.data.status == 'pending' && request.resource.data.requestedAt == request.time;
+      // Requests cannot grant roles. Approval is performed by the Firebase owner.
+      allow update, delete: if false;
+    }
+    match /clubs/{clubId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+    match /events/{eventId} {
+      function validEvent(d) {
+        return d.keys().hasAll(['title','description','clubId','clubName','category','eventType','venue','startAt','endAt',
+          'status','registrationOpen','capacity','registeredCount','eligibleYears','featured','isDemo','updatedAt','updatedBy'])
+          && d.title is string && d.title.size() > 0 && d.title.size() <= 2000
+          && d.description is string && d.description.size() > 0 && d.description.size() <= 10000
+          && d.venue is string && d.venue.size() > 0 && d.venue.size() <= 2000
+          && d.eventType is string && d.eventType.size() > 0
+          && d.clubId is string && exists(/databases/$(database)/documents/clubs/$(d.clubId))
+          && d.clubName == get(/databases/$(database)/documents/clubs/$(d.clubId)).data.name
+          && d.category == get(/databases/$(database)/documents/clubs/$(d.clubId)).data.category
+          && d.startAt is timestamp && d.endAt is timestamp && d.endAt > d.startAt
+          && (d.get('registrationDeadline', null) == null ||
+            (d.registrationDeadline is timestamp && d.registrationDeadline <= d.startAt))
+          && d.status in ['scheduled','completed','cancelled'] && d.registrationOpen is bool
+          && (d.status == 'scheduled' || d.registrationOpen == false)
+          && d.capacity is int && d.capacity >= 0 && d.registeredCount is int && d.registeredCount >= 0
+          && (d.capacity == 0 || d.capacity >= d.registeredCount)
+          && d.eligibleYears is list && d.eligibleYears.size() > 0 && d.eligibleYears.size() <= 4
+          && d.eligibleYears.hasOnly([1,2,3,4])
+          && d.featured is bool && d.isDemo is bool
+          && (d.status != 'completed' || (d.completedAt is timestamp && d.completedAt <= request.time))
+          && d.updatedAt == request.time && d.updatedBy == request.auth.uid;
+      }
+      function registrationIncrement() {
+        let path = /databases/$(database)/documents/users/$(request.auth.uid)/registrations/$(eventId);
+        let r = getAfter(path).data;
+        return isStudent() && canRegister(resource.data)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['registeredCount'])
+          && request.resource.data.registeredCount is int
+          && request.resource.data.registeredCount == resource.data.registeredCount + 1
+          && !exists(path) && r.eventId == eventId && r.studentId == request.auth.uid
+          && r.status == 'registered' && r.registeredAt == request.time;
+      }
+      allow read: if signedIn();
+      allow create: if isAdmin() && validEvent(request.resource.data)
+        && request.resource.data.registeredCount == 0
+        && request.resource.data.createdAt == request.time && request.resource.data.createdBy == request.auth.uid;
+      allow update: if (isAdmin() && validEvent(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'title','description','clubId','clubName','category','eventType','venue','imageUrl','startAt','endAt',
+          'registrationDeadline','capacity','eligibleYears','offersCertificate','certificateDetails','cashPrize',
+          'currency','prizeDetails','status','registrationOpen','featured','isDemo','completedAt','updatedAt','updatedBy'])
+        && request.resource.data.registeredCount == resource.data.registeredCount
+        && (resource.data.registeredCount == 0 || request.resource.data.clubId == resource.data.clubId))
+        || registrationIncrement();
+      allow delete: if isAdmin() && resource.data.registeredCount == 0;
+    }
+  }
+}

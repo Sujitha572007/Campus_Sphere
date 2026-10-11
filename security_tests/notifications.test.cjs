@@ -1,0 +1,20 @@
+const fs=require('fs');const {initializeTestEnvironment,assertSucceeds:ok,assertFails:no}=require('@firebase/rules-unit-testing');const {doc,setDoc,updateDoc,getDoc,getDocs,collectionGroup,query,where}=require('firebase/firestore');
+(async()=>{const env=await initializeTestEnvironment({projectId:'demo-campus-admin',firestore:{host:'127.0.0.1',port:8085,rules:fs.readFileSync('../firestore.rules','utf8')}});let count=0;const s=env.authenticatedContext('s').firestore(),o=env.authenticatedContext('other').firestore(),a=env.authenticatedContext('admin').firestore(),anon=env.unauthenticatedContext().firestore();async function check(n,p){await p;count++;console.log('PASS '+n);}try{
+await env.withSecurityRulesDisabled(async c=>{const d=c.firestore();await setDoc(doc(d,'users/admin'),{role:'admin'});await setDoc(doc(d,'users/s'),{role:'student'});await setDoc(doc(d,'users/s/notifications/n'),{title:'Confirmed',read:false});await setDoc(doc(d,'users/s/email_receipts/e'),{status:'sent'});await setDoc(doc(d,'users/s/checkins/e'),{eventId:'e',studentId:'s'});await setDoc(doc(d,'mail_jobs/private'),{to:'private@example.com'});});
+await check('Owner saves settings',ok(setDoc(doc(s,'users/s/preferences/settings'),{theme:'dark',inAppNotifications:true,emailConfirmations:false})));
+for(const data of [{role:'admin'},{theme:'invalid'},{emailConfirmations:'yes'}])await check('Invalid setting rejected',no(updateDoc(doc(s,'users/s/preferences/settings'),data)));
+await check('Preferences private',no(getDoc(doc(o,'users/s/preferences/settings'))));
+await check('Owner notification read',ok(getDoc(doc(s,'users/s/notifications/n'))));
+await check('Notification private',no(getDoc(doc(o,'users/s/notifications/n'))));
+await check('No fake notifications',no(setDoc(doc(s,'users/s/notifications/fake'),{read:false,title:'Fake'})));
+await check('Owner marks read',ok(updateDoc(doc(s,'users/s/notifications/n'),{read:true})));
+await check('No notification tamper',no(updateDoc(doc(s,'users/s/notifications/n'),{title:'Fake',read:true})));
+await check('No unread reset',no(updateDoc(doc(s,'users/s/notifications/n'),{read:false})));
+await check('Owner sees email status',ok(getDoc(doc(s,'users/s/email_receipts/e'))));
+await check('Cannot fake email status',no(updateDoc(doc(s,'users/s/email_receipts/e'),{status:'sent'})));
+await check('Mail jobs private from admin',no(getDoc(doc(a,'mail_jobs/private'))));
+await check('No client email jobs',no(setDoc(doc(s,'mail_jobs/spam'),{to:'fake@example.com'})));
+await check('Admin attendance query',ok(getDocs(query(collectionGroup(a,'checkins'),where('eventId','==','e')))));
+await check('Student group query denied',no(getDocs(query(collectionGroup(s,'checkins'),where('eventId','==','e')))));
+await check('Anonymous preferences denied',no(getDoc(doc(anon,'users/s/preferences/settings'))));
+console.log(count+' new checks passed');}finally{await env.cleanup();}})().catch(e=>{console.error(e);process.exitCode=1;});

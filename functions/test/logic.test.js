@@ -1,0 +1,6 @@
+const test=require('node:test'); const assert=require('node:assert/strict');
+const {stableId,changedEvent,indiaTime,confirmationText}=require('../logic');
+test('IDs prevent ambiguous pairs and duplicate notifications',()=>{assert.equal(stableId('u','e'),stableId('u','e'));assert.notEqual(stableId('ab','c'),stableId('a','bc'));assert.notEqual(stableId('u','e'),stableId('u','e2'));});
+test('registration count writes never notify all students',()=>{assert.equal(changedEvent({title:'T',registeredCount:1},{title:'T',registeredCount:2}),false);});
+test('cancellations and rescheduled times notify students',()=>{assert.equal(changedEvent({status:'scheduled'},{status:'cancelled'}),true);assert.equal(changedEvent({startAt:{toMillis:()=>1}},{startAt:{toMillis:()=>2}}),true);assert.equal(changedEvent({startAt:{toMillis:()=>1}},{startAt:{toMillis:()=>1}}),false);});
+test('confirmation contains India time and no ticket credential',()=>{const date={toDate:()=>new Date('2026-10-10T04:30:00Z')};const t=confirmationText('Student',{title:'Workshop',venue:'A108',startAt:date,endAt:date,ticketToken:'secret'});assert.match(t,/Workshop/);assert.match(t,/A108/);assert.match(t,/10:00/);assert.match(t,/IST/);assert.doesNotMatch(t,/secret/);assert.equal(indiaTime(null),'To be announced');});
